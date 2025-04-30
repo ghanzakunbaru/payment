@@ -82,7 +82,7 @@
   <script>
     // Cek apakah sudah login
     if (!localStorage.getItem('username')) {
-      window.location.href = "login.html";
+      window.location.href = "index.html";
     }
 
     function showDana() {
@@ -92,7 +92,7 @@
 
     function logout() {
       localStorage.removeItem('username');
-      window.location.href = "login.html";
+      window.location.href = "index.html";
     }
   </script>
 </body>
