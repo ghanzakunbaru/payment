@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Halaman Developer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      text-align: center;
+      background: #f4f6f9;
+    }
+    h1 {
+      color: #333;
+    }
+    button {
+      padding: 12px 20px;
+      font-size: 16px;
+      background: #ff3b3b;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #ff1a1a;
+    }
+  </style>
+</head>
+<body>
+  <h1>Halaman Developer</h1>
+  <p>Ini adalah halaman untuk developer. Anda dapat menghapus semua data dari sistem.</p>
+
+  <button onclick="hapusData()">Hapus Semua Data</button>
+
+  <script>
+    // Mengecek apakah yang login adalah developer (username = ghanz)
+    const currentUser = localStorage.getItem("currentUser");
+    if (currentUser !== 'ghanz') {
+      alert("Akses ditolak. Hanya developer yang dapat mengakses halaman ini.");
+      window.location.href = "login.html";  // Redirect ke halaman login jika bukan developer
+    }
+
+    // Fungsi untuk menghapus semua data
+    function hapusData() {
+      if (confirm("Anda yakin ingin menghapus semua data? Tindakan ini tidak dapat dibatalkan.")) {
+        // Menghapus semua data di localStorage
+        localStorage.clear();
+        alert("Semua data berhasil dihapus.");
+        window.location.href = "login.html";  // Redirect ke halaman login setelah menghapus data
+      }
+    }
+  </script>
+</body>
+</html>
