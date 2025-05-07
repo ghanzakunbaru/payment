@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Login Akun</title>
+  <style>
+    body { font-family: Arial; padding: 20px; text-align: center; }
+    input { width: 80%; padding: 10px; margin: 10px 0; border-radius: 8px; border: 1px solid #ccc; }
+    button { padding: 10px 20px; border: none; border-radius: 8px; background: #0074ff; color: #fff; }
+  </style>
+</head>
+<body>
+  <h2>Login</h2>
+  <input type="text" id="username" placeholder="Username" required><br>
+  <input type="password" id="password" placeholder="Password" required><br>
+  <button onclick="login()">Login</button>
+  <p>Belum punya akun? <a href="register.html">Daftar</a></p>
+
+  <script>
+    function login() {
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+
+      // Cek jika username dan password sesuai dengan data developer
+      if (username === "ghanz" && password === "viyata53") {
+        localStorage.setItem("currentUser", "ghanz");  // Simpan status login sebagai developer
+        alert("Login sebagai Developer berhasil.");
+        window.location.href = "developer.html"; // Arahkan ke halaman Developer
+        return;
+      }
+
+      // Cek login pengguna biasa
+      const users = JSON.parse(localStorage.getItem("users") || "[]");
+      const user = users.find(u => u.username === username && u.password === password);
+
+      if (!user) {
+        return alert("Username atau password salah.");
+      }
+
+      alert("Login berhasil.");
+      window.location.href = "index.html"; // Arahkan ke halaman utama
+    }
+  </script>
+</body>
+</html>
